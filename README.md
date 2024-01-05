@@ -41,7 +41,7 @@ ncat --recv-only -u -l 8889
 The client has two sockets. One of them is used to receive data from the host, and the other one is used to send data to the lossy_link.
 The client sends packets one by one and waits for ACK of each packet before sending the next one. It also has a timeout mechanism to handle packet loss.
 The client sends each packet with a sequence number and waits for ACK of that packet. If it receives the ACK, it sends the next packet.
-If it doesn't receive the ACK before timeout, it resends the packet. And if it receives the ACk of unexpected packet (unexpected sequence number), it ignores it.
+If it doesn't receive the ACK before timeout, it resends the packet. And if it receives the ACK of unexpected packet (unexpected sequence number), it ignores it.
 
 ### Server
 The server has only one socket. It receives packets from the lossy_link and sends ACKs back (The ACK is based on the sequence number of the received packet)
