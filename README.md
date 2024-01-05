@@ -7,7 +7,7 @@ I implemented a simple protocol over UDP to transfer packets between two hosts. 
 It is an enhanced version of stop-and-wait protocol. It sends packets one by one and waits for ACK of each packet before sending the next one. It also has a timeout mechanism to handle packet loss.
 
 ## Usage
-The client receives data from port 8888 and sends them to port 12345 using port 12346 which a lossy_link is listening to (There are two sockets in the client).
+The client receives data from port 8888 and sends them to port 12345 using port 12346 which a [lossy_link](https://github.com/HirbodBehnam/lossy_link) is listening to (There are two sockets in the client).
 The lossy_link changes the order of packets and drops some of them. Then it sends the packets to port 54321 which the server is listening to.
 Finally, the server receives the packets and sends ACKs back to lossy_link and lossy_link sends them to the client (lossy_link will do it without any packet drop). The server also sends the received data to port 8889 which another host is listening to.
 
