@@ -1,24 +1,23 @@
-# UDP & Go-Back-N
-
 from socket import *
 
 
 class Server:
-    def __init__(self, host, port):
+    def __init__(self, host, server_port, destination_port):
         self.host = host
-        self.port = port
+        self.server_port = server_port
         self.socket = socket(AF_INET, SOCK_DGRAM)
-        self.socket.bind((host, port))
-        print(f'socket binded to port {port}')
+        self.socket.bind((host, server_port))
+        print(f'server socket binded to port {server_port}')
 
+        self.destination_port = destination_port
         self.expected_seq_num = 0
 
-    def listen(self):
+    def run(self):
         while True:
             try:
-                message, address = self.socket.recvfrom(1024)
-                new_address = (address[0], 8889)
-                self.handle_message(message, address, new_address)
+                message, from_address = self.socket.recvfrom(1024)
+                to_address = (from_address[0], self.destination_port)
+                self.handle_message(message, from_address, to_address)
             except KeyboardInterrupt:
                 self.socket.close()
                 print('socket closed')
@@ -39,5 +38,5 @@ class Server:
 
 
 if __name__ == '__main__':
-    receiver = Server('', 54321)
-    receiver.listen()
+    receiver = Server('', 54321, 8889)
+    receiver.run()
